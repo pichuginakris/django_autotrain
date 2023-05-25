@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Upload Photos</h1>
+
+
+<form id="upload-form" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <script>
+  console.log('afs');
+  document.getElementById("upload-form").addEventListener("submit", function(event) {
+    var folderInput = document.getElementById("folder-input");
+    console.log('afs');
+    var files = folderInput.files;
+
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var item = document.createElement("input");
+      item.type = "hidden";
+      item.name = "folder_paths[]";
+
+      item.value = file.webkitRelativePath;
+      console.log(item.value);
+      folderInput.parentNode.appendChild(item);
+    }
+  });
+</script>
+  <div>
+    <label for="folder-input">Select a folder:</label>
+    <input id="folder-input" type="file" name="folder" webkitdirectory mozdirectory directory multiple />
+  </div>
+  <button type="submit">Upload</button>
+</form>
+{% endblock %}
+
