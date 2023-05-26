@@ -1,0 +1,427 @@
+/* style.css */
+
+body {
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-name h2 {
+    color: #ffc107;
+    margin: 0;
+}
+
+/*.project-selection select,
+.project-selection button {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.project-selection button {
+    cursor: pointer;
+}*/
+
+.project-selection select {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+
+}
+
+.project-selection select:hover {
+  background-color: #ffd04e;
+}
+
+.project-selection select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffd04e;
+}
+
+.project-selection select option {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.project-selection select option:hover {
+  background-color: #ffd04e;
+  color: #000;
+}
+
+.project-selection select option:checked {
+  background-color: #ffd04e;
+  color: #000;
+}
+
+.project-selection button {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 5%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.project-selection button:hover {
+  background-color: #ffd04e;
+}
+
+.project-selection button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffd04e;
+}
+
+
+nav {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.menu li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.menu li a:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+/* Стили для шаблона "upload" */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input[type="file"] {
+  display: block;
+  margin-top: 5px;
+}
+
+button[type="submit"] {
+  padding: 5px 10px;
+  background-color: #333333;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Стили для шаблона "show_photos" */
+
+.select-folder {
+  margin-bottom: 20px;
+}
+
+.select-folder select,
+.select-folder button {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+#photo-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.photo-item {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.photo-item img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#photo-navigation {
+  margin-top: 20px;
+}
+
+#prev-button,
+#next-button {
+  padding: 8px 16px;
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#prev-button {
+  margin-right: 10px;
+}
+
+
+.select-folder {
+  display: inline-block;
+}
+
+.select-folder select,
+.select-folder button {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.select-folder button {
+  cursor: pointer;
+}
+.sidebar {
+    background-color: #333;
+    padding: 20px;
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.menu li a:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+
+main {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 20px;
+}
+
+/* style.css */
+
+/* Стили для шаблона "create_project" */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ffc107;
+}
+
+button[type="submit"] {
+  padding: 8px 16px;
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #ffd04e;
+}
+
+button[type="submit"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffd04e;
+}
+
+
+/**/
+/* style.css */
+
+.project-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 180px;
+  border: 1px dashed #ccc;
+  text-decoration: none;
+  color: #000;
+  transition: background-color 0.3s ease;
+}
+
+.project-item:hover {
+  background-color: #444444;
+}
+
+.project-item-inner {
+  text-align: center;
+}
+
+.create-project {
+  background-color: #ffc107;
+}
+
+.create-project:hover {
+  background-color: #ffd04e;
+}
+
+.create-project h2 {
+  color: #000;
+}
+
+.project-item h2 {
+  margin: 0;
+}
+
+.project-item-inner::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+button.delete-button {
+    margin-top: 10px;
+    background: none;
+}
+.folder-container {
+  width: 400px;
+  height: 200px;
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.folder-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+  z-index: 1;
+}
+span.folder-text{
+     position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+
+#folder-input {
+  position: relative;
+    opacity: 0;
+}

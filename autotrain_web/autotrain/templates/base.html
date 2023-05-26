@@ -1,26 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
     <header>
         <div class="project-name">
-            {% if project %}
-                <h2>{{ project.name }}</h2>
-            {% endif %}
+            <h2>
+                {% if project %}
+                    {{ project.name }}
+                {% else %}
+                    Выбрать проект
+                {% endif %}
+            </h2>
+        </div>
+            <div class="project-selection">
+            <form method="get" action="{% url 'show_photos'  %}">
+                <label for="project-select">Выбрать проект:</label>
+                <select id="project-select" name="project_id">
+                    <option value="" {% if not project.id  %}selected{% endif %}>Все проекты</option>
+                    {% for p in projects %}
+                        <option value="{{ p.id }}" {% if project.id == p.id %}selected{% endif %}>{{ p.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Выбрать</button>
+            </form>
         </div>
         <nav>
             <ul class="menu">
-                <li><a href="{% url 'create_project' %}">Create Project</a></li>
-                <li><a href="{% url 'upload_photos' %}">Upload Photos</a></li>
-                <li><a href="{% url 'show_photos' %}">Show Photos</a></li>
+                <li><a href="{% url 'projects' %}">Проекты</a></li>
+                <li><a href="{% url 'create_project' %}">Создать проект</a></li>
+                <li><a href="{% url 'upload_photos' %}">Загрузить файлы</a></li>
+                <li><a href="{% url 'show_photos' %}">Показать фото</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+
+
         {% block content %}
         {% endblock %}
     </main>
