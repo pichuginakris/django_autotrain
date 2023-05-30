@@ -3,30 +3,40 @@
 {% block content %}
   <h1>Показать фото</h1>
   <div class="form-container">
-    <h2>Выберите папку:</h2>
-    <form method="get" action="{% url 'show_photos' %}"  class="select-folder">
-        <select name="folder_name">
+
+  <div class="select-folder">
+
+      <form method="post" action="{% url 'show_photos' %}" class="config-form">
+        {% csrf_token %}
+        <label for="dataset-path-input">Путь к набору данных:</label>
+         <select name="folder_name" id="dataset-path-input">
         {% for folder in folders %}
-          <option value="{{ folder }}">{{ folder }}</option>
+          <option value="{{ folder }}" {% if folder == selected_folder %}selected{% endif %}>{{ folder }}</option>
         {% endfor %}
       </select>
-      <button type="submit">Go</button>
-    </form>
 
+        <label for="classes-path-input">Путь к файлу классов:</label>
+          <select name="classes_folder_name" id="classes-path-input">
+        {% for folder in folders %}
+          <option value="{{ folder }}" {% if folder == selected_folder %}selected{% endif %}>{{ folder }}</option>
+        {% endfor %}
+      </select>
 
-    <h2>Фото:</h2>
-    <div id="photo-container">
-      {% for photo in photos %}
-        <div class="photo-item">
-          <img src="{{ photo.image.url }}" alt="Photo" width="300" height="200">
-        </div>
-      {% endfor %}
-    </div>
+        <label for="gpu-input">Использовать GPU:</label>
+        <input id="gpu-input" type="checkbox" name="GPU" {% if config.GPU %}checked{% endif %}>
 
-    <div id="photo-navigation">
-      <button id="prev-button">Следующее</button>
-      <button id="next-button">Предыдущее</button>
-    </div>
- </div>
+        <label for="speed-input">Скорость:</label>
+        <input id="speed-input" type="number" name="speed" min="1" max="5" value="{{ config.speed }}" required>
+
+        <label for="accuracy-input">Точность:</label>
+        <input id="accuracy-input" type="number" name="accuracy" min="1" max="10" value="{{ config.accuracy }}" required>
+
+        <button type="submit">Сохранить</button>
+
+      </form>
+
+  </div>
+
+  </div>
   <script src="{% static 'js/show_photos.js' %}"></script>
 {% endblock %}

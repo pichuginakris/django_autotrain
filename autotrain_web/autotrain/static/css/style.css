@@ -425,3 +425,121 @@ span.folder-text{
   position: relative;
     opacity: 0;
 }
+
+/* styles.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #555;
+}
+
+.info-block {
+  margin-bottom: 20px;
+  background-color: #333;
+  color: #ffc107;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h2 {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.top-models {
+  margin-top: 20px;
+  background-color: #333;
+  color: #ffc107;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.top-models h2 {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.top-models ul {
+  list-style: none;
+  padding: 0;
+}
+
+.top-models li {
+  margin-bottom: 5px;
+  font-style: italic;
+  color: #999;
+}
+
+/* styles.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container {
+
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.select-folder {
+  margin-bottom: 20px;
+}
+
+.config-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.config-form select,
+.config-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.config-form button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.config-form button:hover {
+  background-color: #555;
+}
+
+.config-form button:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}

@@ -10,3 +10,11 @@ class ProjectForm(forms.ModelForm):
 
 class PhotoForm(forms.Form):
     folder = forms.FileField()
+
+
+class ConfigForm(forms.Form):
+    dataset_path = forms.CharField(label='Dataset Path')
+    classes_path = forms.CharField(label='Classes Path')
+    GPU = forms.BooleanField(label='GPU')
+    speed = forms.IntegerField(label='Speed', min_value=1, max_value=5)
+    accuracy = forms.IntegerField(label='Accuracy', min_value=1, max_value=10)

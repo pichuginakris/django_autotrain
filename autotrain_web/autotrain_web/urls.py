@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from autotrain.views import create_project, upload_photos, show_photos, projects, delete_project
+from autotrain.views import create_project, upload_photos, show_photos, projects, delete_project, config_page
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
                   path('show_photos/', show_photos, name='show_photos'),
                   path('', projects, name='projects'),
                   path('delete/', delete_project, name='delete_project'),
+                  path('config/', config_page, name='config'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

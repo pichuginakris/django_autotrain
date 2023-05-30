@@ -1,0 +1,46 @@
+<!-- result.html -->
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <h1>Информация о результатах</h1>
+
+    <div class="info-block">
+      <h2>Количество изображений:</h2>
+      <p class="value">{{ result.0.4 }}</p>
+    </div>
+
+    <div class="info-block">
+      <h2>W:</h2>
+      <p class="value">{{ result.0.0 }}</p>
+    </div>
+
+    <div class="info-block">
+      <h2>H:</h2>
+      <p class="value">{{ result.0.1 }}</p>
+    </div>
+
+    <div class="info-block">
+      <h2>Коэффициент Джини:</h2>
+      <p class="value">{{ result.0.2 }}</p>
+    </div>
+
+    <div class="info-block">
+      <h2>Количество классов:</h2>
+      <p class="value">{{ result.0.3 }}</p>
+    </div>
+
+    <div class="top-models">
+      <h2>Топ модели:</h2>
+      <ul>
+        {% for model, key in result.1.items %}
+          <li>{{ model }}: {{ key }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}
