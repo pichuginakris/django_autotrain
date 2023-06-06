@@ -8,6 +8,7 @@ document.getElementById("upload-form").addEventListener("submit", function(event
     item.type = "hidden";
     item.name = "folder_paths[]";
     item.value = file.webkitRelativePath;
+    console.log(item.value);
     folderInput.parentNode.appendChild(item);
   }
 });

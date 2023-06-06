@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 
-from .forms import ProjectForm, ConfigForm
-from .models import Project, Photo
+from .forms import ProjectForm, ConfigForm, ClassesForm
+from .models import Project, Photo, Classes
 
 from .ORDC.ODRS.ODRC.ml_model_optimizer import main
 
@@ -125,17 +125,28 @@ def show_photos(request):
     }
 
     if request.method == 'POST':
-        config['dataset_path'] = os.path.join(settings.MEDIA_ROOT, 'files', request.POST.get('folder_name'))
-        config['classes_path'] = os.path.join(settings.MEDIA_ROOT, 'files', request.POST.get('classes_folder_name'), 'classes_aer.txt')
-        config['GPU'] = True
+        print(request.POST.get('GPU'))
+        folder_name = request.POST.get('folder_name')
+        file = request.FILES.get('files_classes')
+
+        classes_instance = Classes(project=project, files_classes=file, folder_name=folder_name)
+        classes_instance.save()
+
+        config['dataset_path'] = os.path.join(settings.MEDIA_ROOT, 'files', folder_name)
+        config['classes_path'] = os.path.join(settings.MEDIA_ROOT, 'classes', folder_name,
+                                              str(file))
+        if request.POST.get('GPU') == 'on':
+            config['GPU'] = True
+        else:
+            config['GPU'] = False
+
         config['speed'] = int(request.POST.get('speed'))
         config['accuracy'] = int(request.POST.get('accuracy'))
         config['models_array'] = ["yolov5l", "yolov5m", "yolov5n", "yolov5s", "yolov5x",
-                       "yolov7x", "yolov7", "yolov7-tiny", "yolov8x6", "yolov8x",
-                       "yolov8s", "yolov8n", "yolov8m"]
+                                  "yolov7x", "yolov7", "yolov7-tiny", "yolov8x6", "yolov8x",
+                                  "yolov8s", "yolov8n", "yolov8m"]
         save_config_to_file(config)
         result = main()
-        print(result)
         return render(request, 'results.html', {'result': result})
 
     return render(request, 'show_photos.html', {
@@ -145,7 +156,6 @@ def show_photos(request):
         'folders': folders,
         'selected_folder': selected_folder,
         'config': config,
-
     })
 
 
