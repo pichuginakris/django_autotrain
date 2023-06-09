@@ -8,13 +8,13 @@
   <div class="project-container">
       <a href="{% url 'create_project' %}" class="project-item create-project">
       <div class="project-item-inner">
-        <h2>Создать новый проект</h2>
+        Создать новый проект
       </div>
     </a>
     {% for project in projects %}
-      <a href="{% url 'show_photos' %}?project_id={{ project.id }}" class="project-item">
+      <a href="{% url 'show_files' %}?project_id={{ project.id }}" class="project-item">
         <div class="project-item-inner">
-          <h2>{{ project.name }}</h2>
+          {{ project.name }}
           <form action="{% url 'delete_project' %}?project_id={{ project.id }}" method="post" class="delete-form">
             {% csrf_token %}
             <button type="submit" class="delete-button">

@@ -9,40 +9,68 @@
 </head>
 <body>
     <header>
-        <div class="project-name">
-            <h2>
-                {% if project %}
-                    {{ project.name }}
-                {% else %}
-                    Выбрать проект
-                {% endif %}
-            </h2>
-        </div>
+
             <div class="project-selection">
-            <form method="get" action="{% url 'show_photos'  %}">
-                <label for="project-select">Выбрать проект:</label>
-                <select id="project-select" name="project_id">
-                    <option value="" {% if not project.id  %}selected{% endif %}>Все проекты</option>
-                    {% for p in projects %}
-                        <option value="{{ p.id }}" {% if project.id == p.id %}selected{% endif %}>{{ p.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit">Выбрать</button>
-            </form>
+                <style>
+
+</style>
+
+<script>
+    // JavaScript для обработки кликов на элементы выпадающего списка
+    document.addEventListener("DOMContentLoaded", function() {
+        var dropdownBtns = document.querySelectorAll(".dropdown-btn");
+
+        dropdownBtns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                this.parentNode.querySelector(".dropdown-content").classList.toggle("show");
+            });
+        });
+
+        // Закрытие выпадающего списка при клике вне его области
+        window.addEventListener("click", function(event) {
+            if (!event.target.matches(".dropdown-btn")) {
+                var dropdowns = document.querySelectorAll(".dropdown-content");
+                dropdowns.forEach(function(dropdown) {
+                    if (dropdown.classList.contains("show")) {
+                        dropdown.classList.remove("show");
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+    <div id="project-select">
+        <div class="dropdown">
+            <button class="dropdown-btn" type="button"> {% if project.id %}
+                {{ project.name }}
+            {% else %}
+                Выбрать
+            {% endif %}</button>
+            <div class="dropdown-content">
+                <a href="{% url 'projects' %}" {% if not project.id %}class="selected"{% endif %}>Все проекты</a>
+                <a href="{% url 'create_project' %}">Создать новый</a>
+                {% for p in projects %}
+                    <a href="{% url 'show_files' %}?project_id={{ p.id }}" {% if project.id == p.id %}class="selected"{% endif %}>{{ p.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
         </div>
         <nav>
             <ul class="menu">
                 <li><a href="{% url 'projects' %}">Проекты</a></li>
                 <li><a href="{% url 'create_project' %}">Создать проект</a></li>
-                <li><a href="{% url 'upload_photos' %}">Загрузить файлы</a></li>
-                <li><a href="{% url 'show_photos' %}">Показать фото</a></li>
+                <li><a href="{% url 'upload_files' %}">Загрузить файлы</a></li>
+                <li><a href="{% url 'show_files' %}">Настройки</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-
-
         {% block content %}
         {% endblock %}
     </main>

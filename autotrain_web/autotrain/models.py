@@ -17,7 +17,7 @@ def get_file_upload_path_classes(instance, filename):
     return os.path.join('classes', folder_name, filename)
 
 
-class Photo(models.Model):
+class Files(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     folder_name = models.CharField(max_length=255, default='unnamed')
     files = models.FileField(upload_to=get_file_upload_path)

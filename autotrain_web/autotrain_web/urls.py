@@ -18,14 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from autotrain.views import create_project, upload_photos, show_photos, projects, delete_project, config_page
+from autotrain.views import create_project, upload_files, show_files, projects, delete_project
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('create_project/', create_project, name='create_project'),
-                  path('upload_photos/', upload_photos, name='upload_photos'),
-                  path('show_photos/', show_photos, name='show_photos'),
+                  path('upload_files/', upload_files, name='upload_files'),
+                  path('show_files/', show_files, name='show_files'),
                   path('', projects, name='projects'),
                   path('delete/', delete_project, name='delete_project'),
-                  path('config/', config_page, name='config'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
