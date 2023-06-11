@@ -276,16 +276,17 @@ span.folder-text {
 
 .info-block {
     margin-bottom: 20px;
-    background-color: #333;
-    color: #ffc107;
+    background: linear-gradient(197.95deg, #4D4D4D 4.37%, #373737 103.8%);
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.14), inset 3px 4px 4px rgba(214, 214, 214, 0.03);
+    border-radius: 13px;
     padding: 10px;
-    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
-.value {
-    font-weight: bold;
-    font-size: 20px;
-}
 
 .top-models {
     margin-top: 20px;
