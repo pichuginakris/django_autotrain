@@ -217,12 +217,12 @@ button.delete-button:hover {
 }
 
 .create-project {
-    background-color: #51AB32;
+    background: #2E2E2E;
+    box-shadow: 0px 3px 4px rgba(75, 75, 75, 0.25), inset 0px 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    border: none;
 }
 
-.create-project:hover {
-    background-color: #007521;
-}
 
 .project-item h2 {
     margin: 0;
@@ -368,6 +368,7 @@ label {
 }
 .config-form select {
     width: 50%;
+    min-width: 50%;
     padding: 10px;
     border: none;
     font-size: 16px;
