@@ -1,5 +1,6 @@
 import os
 import yaml
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -33,7 +34,10 @@ def create_project(request):
 
     if project_id:
         # Если 'project_id' задан, получаем объект проекта по 'project_id' из базы данных
-        project = Project.objects.get(id=project_id)
+        try:
+            project = Project.objects.get(id=project_id)
+        except:
+            project = None
     else:
         project = None
 
@@ -92,23 +96,31 @@ def upload_files(request):
         # Обработка POST-запроса при загрузке фотографий
 
         folder = request.FILES.getlist('folder')
-        # Обработка папки с фотографиями
-        folder_paths = request.POST.getlist('folder_paths[]')
-        folder_name = os.path.dirname(folder_paths[0])
-        folder_id = 0
         if folder:
+            # Обработка папки с фотографиями
+            folder_paths = request.POST.getlist('folder_paths[]')
+            folder_name = os.path.dirname(folder_paths[0])
+
+            folder_main = folder_paths[0].replace(' ', '').split("/", 1)[0]
+            # Сохранение главного пути загружаемых файлов
+            request.session['selected_folder'] = folder_main
+            # file = Files(project=project, files=None, folder_name=folder_main)
+            # file.save()
+            folder_id = 0
             for file in folder:
                 # Удаление пробелов из названия папок
                 folder_name = os.path.dirname(folder_paths[folder_id].replace(' ', ''))
-                print(folder_name)
-                # Создание экземпляра класса 'Files' и сохранение его в базе данных
-                file = Files(project=project, files=file, folder_name=folder_name)
-                file.save()
+                # Создание экземпляра класса 'Files' и сохранение его в базе данных в случае, если такой файл еще не был загружен
+                try:
+                    existing_file = Files.objects.get(project=project, files=file, folder_name=folder_name)
+                except ObjectDoesNotExist:
+                    file = Files(project=project, files=file, folder_name=folder_name)
+                    file.save()
                 folder_id += 1
             # Сохранение выбранной папки в сессии
-            request.session['selected_folder'] = folder_name
+
             # Перенаправление на страницу отображения фотографий
-            return redirect('show_files')
+            return redirect('preview')
 
     # Отображение страницы 'upload_files.html' с передачей данных в шаблон
     return render(request, 'upload_files.html', {'project': project, 'projects': projects})
@@ -126,7 +138,6 @@ def save_config_to_file(config):
 
     """
     config_file_path = os.path.join(os.getcwd(), 'autotrain', 'ORDC', 'ODRS', 'ODRC', 'ml_config.yaml')
-    print(config_file_path)
     with open(config_file_path, 'w') as file:
         yaml.dump(config, file)
 
@@ -179,12 +190,10 @@ def show_files(request):
         # Обработка POST-запроса при отправке формы
 
         # Получение значения параметра 'GPU' из POST-запроса
-        print(request.POST.get('GPU'))
         # Получение значения параметра 'folder_name' из POST-запроса
         folder_name = request.POST.get('folder_name')
         # Получение файла из POST-запроса
         file = request.FILES.get('file')
-        print(file)
         # Создание экземпляра класса Classes и сохранение его в базу данных
         classes_instance = Classes(project=project, files_classes=file, folder_name=folder_name)
         classes_instance.save()
@@ -236,7 +245,6 @@ def projects(request):
 
     """
     project_id = request.GET.get('project_id')
-
     if not project_id:
         # Если 'project_id' отсутствует в запросе, проверяем наличие его значения в сессии
         project_id = request.session.get('project_id')
@@ -249,6 +257,37 @@ def projects(request):
         project = None
     projects = Project.objects.all()
     return render(request, 'projects.html', {'project': project, 'projects': projects})
+
+
+def preview(request):
+    selected_folder = request.session.get('selected_folder')
+    print(selected_folder)
+    if selected_folder:
+        queryset = Files.objects.filter(folder_name__startswith=selected_folder)
+        folder_dict = {}
+        for file in queryset:
+            folder_path = file.folder_name
+            folder_parts = folder_path.split("/")
+            file_name = file.files.name
+            current_dict = folder_dict
+
+            for i, folder_part in enumerate(folder_parts):
+                if folder_part not in current_dict:
+                    current_dict[folder_part] = {}  # Создаем новый вложенный словарь, если его еще нет
+                if i == len(folder_parts) - 1:
+                    if "files" not in current_dict[folder_part]:
+                        current_dict[folder_part]["files"] = []
+                    if len(current_dict[folder_part]["files"]) < 10:
+                        current_dict[folder_part]["files"].append((file_name))  # Добавляем файл в список файлов текущей папки
+                else:
+                    if "folders" not in current_dict[folder_part]:
+                        current_dict[folder_part]["folders"] = {}
+                    current_dict = current_dict[folder_part]["folders"]  # Переходим к следующему вложенному словарю
+    else:
+        return render(request, 'projects.html')
+    # Обработка случая, когда selected_folder не задан
+
+    return render(request, 'preview.html', {'folder_dict': folder_dict})  # Перенаправление на страницу проектов
 
 
 def delete_project(request):
@@ -272,5 +311,8 @@ def delete_project(request):
 
     # Выполнение удаления
     project.delete()
+    if request.session['project_id']:
+        if request.session['project_id'] == project_id:
+            del request.session['project_id']
 
     return redirect('projects')  # Перенаправление на страницу проектов

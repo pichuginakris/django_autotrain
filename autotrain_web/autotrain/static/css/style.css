@@ -134,8 +134,6 @@ nav {
 }
 /* Верхнее меню конец */
 
-
-
 .form-container {
     text-align: center;
     margin-bottom: 20px;
@@ -234,7 +232,6 @@ button.delete-button {
 }
 
 .folder-container {
-    width: 400px;
     height: 200px;
     border: 1px dashed #ccc;
     display: flex;
@@ -321,6 +318,7 @@ span.folder-text {
 
 
 .form-container {
+    max-width: 50%;
     padding: 20px;
     background: linear-gradient(197.95deg, #4D4D4D 4.37%, #373737 103.8%);
     box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.14), inset 3px 4px 4px rgba(214, 214, 214, 0.03);
@@ -465,4 +463,78 @@ input[type=checkbox]:checked:before {
 
 button.launch {
     margin-top: 20px;
+}
+/* Стили для преподготовки файлов  */
+div.preloaded {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #2e2e2e70;
+    box-shadow: 0px 3px 4px rgba(75, 75, 75, 0.25), inset 0px 3px 6px rgba(0, 0, 0, -0.75);
+    border-radius: 13px;
+}
+
+div.preloaded-header {
+    display: flex;
+    border: 1px #424242 solid;
+    border-radius: 13px;
+    padding-left: 20px;
+    align-items: center;
+}
+
+div.preloaded-folder {
+    border: 1px #424242 solid;
+    padding-left: 40px;
+    border-radius: 13px;
+    overflow: hidden;
+
+}
+
+div.preloaded-images-header {
+    display: flex;
+    align-items: center;
+}
+
+div.folder-path-line {
+    height: 75px;
+    margin-right: 10px;
+    min-width: 50px;
+    border-left: 1px #424242 solid;
+    border-bottom: 1px #424242 solid;
+}
+.preloaded-obj {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+p.image-label {
+ position: absolute;
+    top: 45%;
+    left: 0%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    width: 100px;
+}
+
+div.preloaded-labels, div.preloaded-images {
+    display: flex;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+div.blur {
+
+    position: absolute;
+    /* height: 100%; */
+    height: 100px;
+    width: 30px;
+    /* left: 0; */
+    left: 68%;
+    background: #ffffff2e;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
 }
