@@ -13,16 +13,15 @@ document.getElementById("upload-form").addEventListener("submit", function(event
         console.log(folderDepth);
         if (folderDepth > 1) {
               flagDepth = "True";
-      }
+        }
 
-    folderInput.parentNode.appendChild(item);
+        folderInput.parentNode.appendChild(item);
     }
     if (flagDepth === "False") {
         // Вывод текста ошибки в upload-form
           let errorText = document.getElementById("launch-files-text");
-          errorText.textContent = "Ошибка: вложенность папки меньше одной.";
+          errorText.textContent = "No selectable files. Please check for invalid file names or extensions..";
           errorText.style.color = "red";
-          item.value ='fafsafas';
           folderInput.parentNode.appendChild(errorText);
           event.preventDefault(); // Отмена отправки запроса POST
           return;

@@ -2,52 +2,52 @@
 {% load static %}
 {% block title %}Configurations{% endblock %}
 {% block content %}
-  <h1>Настройки </h1>
+<h1>Settings </h1>
 
-  <div class="form-container">
+<div class="form-container">
 
-    <div class="select-folder">
+  <div class="select-folder">
 
-      <form method="post" action="{% url 'show_files' %}" class="config-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="input-fields">
-          <label for="dataset-path-input">Путь к набору данных</label>
-          <select name="folder_name" id="dataset-path-input">
-            {% for folder in folders %}
-              <option value="{{ folder }}" {% if folder == selected_folder %}selected{% endif %}>{{ folder }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="input-fields">
-          <label class="input-file">
-            <label> Файл классов </label>
-	     	<input type="file" name="file">
-            <div class="file-fields">
- 	     	  <span class="input-file-btn">Выберите файл</span>
-	     	  <span class="input-file-text">Максимум 10мб</span>
-            </div>
- 	      </label>
+    <form method="post" action="{% url 'show_files' %}" class="config-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="input-fields">
+        <label for="dataset-path-input">Dataset path</label>
+        <select name="folder_name" id="dataset-path-input">
+          {% for folder in folders %}
+          <option value="{{ folder }}" {% if folder == selected_folder %}selected{% endif %}>{{ folder }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="input-fields">
+        <label class="input-file">
+          <label> Classes path </label>
+          <input type="file" name="file">
+          <div class="file-fields">
+            <span class="input-file-btn">Choose file</span>
+            <span class="input-file-text">Maximum 10mb</span>
+          </div>
+        </label>
 
-        </div>
-        <div class="input-fields">
-          <label for="gpu-input">Использовать GPU</label>
-          <input id="gpu-input" type="checkbox" name="GPU" {% if config.GPU %}checked{% endif %}>
-        </div>
-        <div class="input-fields">
-          <label for="speed-input">Скорость</label>
-          <input id="speed-input" type="number" name="speed" min="1" max="5" value="{{ config.speed }}" required>
-        </div>
-        <div class="input-fields">
-          <label for="accuracy-input">Точность</label>
-          <input id="accuracy-input" type="number" name="accuracy" min="1" max="10" value="{{ config.accuracy }}" required>
-        </div>
-        <button type="submit" class="launch">Запуск обучения</button>
+      </div>
+      <div class="input-fields">
+        <label for="gpu-input" >GPU</label>
+        <input id="gpu-input" type="checkbox" title="Описание поля GPU" name="GPU" {% if config.GPU %}checked{% endif %}>
+      </div>
+      <div class="input-fields">
+        <label for="speed-input">Speed</label>
+        <input id="speed-input" type="number" name="speed" min="1" max="5" value="{{ config.speed }}" required>
+      </div>
+      <div class="input-fields">
+        <label for="accuracy-input">Accuracy</label>
+        <input id="accuracy-input" type="number" name="accuracy" min="1" max="10" value="{{ config.accuracy }}" required>
+      </div>
+      <button type="submit" class="launch">Training</button>
 
-      </form>
-
-    </div>
+    </form>
 
   </div>
+
+</div>
 <script>  // для файлов вставки
 
 var inputFile = document.querySelector('.input-file input[type=file]');

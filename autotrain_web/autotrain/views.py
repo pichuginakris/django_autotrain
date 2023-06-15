@@ -102,10 +102,18 @@ def upload_files(request):
             folder_name = os.path.dirname(folder_paths[0])
 
             folder_main = folder_paths[0].replace(' ', '').split("/", 1)[0]
+            print(folder_main)
+            # Проверка наличия папки с таким же главным названием в базе данных
+            existing_folders = Files.objects.filter(project=project, folder_name__startswith=folder_main)
+            if existing_folders.exists():
+                # Если папка с таким же главным названием уже существует, создаем новое название папки
+                folder_count = existing_folders.count()
+                folder_main = f"{folder_main}_{folder_count + 1}"
+
             # Сохранение главного пути загружаемых файлов
             request.session['selected_folder'] = folder_main
-            # file = Files(project=project, files=None, folder_name=folder_main)
-            # file.save()
+            file = Files(project=project, files=None, folder_name=folder_main)
+            file.save()
             folder_id = 0
             for file in folder:
                 # Удаление пробелов из названия папок
@@ -261,7 +269,23 @@ def projects(request):
 
 def preview(request):
     selected_folder = request.session.get('selected_folder')
-    print(selected_folder)
+    project_id = request.GET.get('project_id')
+
+    # Если 'project_id' отсутствует в запросе, проверяем наличие его значения в сессии
+    if not project_id:
+        project_id = request.session.get('project_id')
+    else:
+        # Если 'project_id' присутствует в запросе, сохраняем его значение в сессии
+        request.session['project_id'] = project_id
+
+    if not project_id:
+        # Если значение 'project_id' не задано, перенаправляем на страницу создания проекта
+        return redirect('create_project')
+
+    # Получение объекта проекта по 'project_id' из базы данных
+    project = Project.objects.get(id=project_id)
+    # Получение всех проектов из базы данных
+    projects = Project.objects.all()
     if selected_folder:
         queryset = Files.objects.filter(folder_name__startswith=selected_folder)
         folder_dict = {}
@@ -287,7 +311,7 @@ def preview(request):
         return render(request, 'projects.html')
     # Обработка случая, когда selected_folder не задан
 
-    return render(request, 'preview.html', {'folder_dict': folder_dict})  # Перенаправление на страницу проектов
+    return render(request, 'preview.html', {'folder_dict': folder_dict, 'projects': projects, 'project':project})  # Перенаправление на страницу проектов
 
 
 def delete_project(request):

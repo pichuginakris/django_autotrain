@@ -160,15 +160,16 @@ input[type="text"]:focus{
     background: #4F4D4D;
     outline: none;
 }
-button[type="submit"] {
+button[type="submit"], a.next {
     background: #51AB32;
     box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.14), inset 3px 4px 4px rgba(214, 214, 214, 0.03);
     border-radius: 27px;
     padding: 8px 16px;
     border: none;
     color: #FFFFFF;
+    text-decoration: none;
 }
-button[type="submit"]:hover {
+button[type="submit"]:hover, a.next:hover  {
     background: #007521;
 }
 
@@ -527,14 +528,10 @@ div.preloaded-labels, div.preloaded-images {
 }
 
 div.blur {
-
     position: absolute;
-    /* height: 100%; */
     height: 100px;
-    width: 30px;
-    /* left: 0; */
-    left: 68%;
-    background: #ffffff2e;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
+    width: 10px;
+    left: 70%;
+    backdrop-filter: blur(2px);
 }
+

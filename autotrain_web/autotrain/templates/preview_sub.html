@@ -8,9 +8,9 @@
             <p style="margin-left: 10px">{{ folder }}</p>  <!-- Название главной папки -->
         </div>
         {% if folder_data.files %}
+        {% if folder_data.files.0 %}
         <div class="preloaded-images" >
             <div class="folder-path-line" >
-
             </div>
             {% for file in folder_data.files %}
             <div class="preloaded-obj">
@@ -23,19 +23,15 @@
                 <p class="image-label">
                     ...{{ file|slice:"-8:"  }}</p>  <!-- Название файла -->
             </div>
-
             {% endfor %}
         </div>
         {% endif %}
-
+        {% endif %}
     </div>
 
     <!-- Рекурсивный вызов для вложенных папок -->
     {% if folder_data.folders %}
     {% include 'preview_sub.html' with folder_dict=folder_data.folders %}
     {% endif %}
-
-
-
     {% endfor %}
 </div>
