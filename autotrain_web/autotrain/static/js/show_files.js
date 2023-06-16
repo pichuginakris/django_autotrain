@@ -20,6 +20,10 @@ function validateForm() {
     errorMessage.textContent = "Please choose a file";
     return false; // Prevent form submission
   }
+  else {
+    let loader = document.getElementById("loader");
+    loader.style.display = "block";
+  }
 }
 
 let iconsId = ['gpu-icon', 'dataset-path-icon', 'classes-path-icon', 'speed-icon', 'accuracy-icon'];

@@ -102,12 +102,16 @@
     <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="folder-container">
+                <div class="loader" id="loader"></div>
             <label for="folder-input" class="folder-label">
                 <span class="folder-text" id="launch-files-text">Upload files</span>
+
                 <input id="folder-input" type="file" name="folder" webkitdirectory mozdirectory directory multiple />
             </label>
         </div>
         <button type="submit" class="launch">Upload</button>
+
+
     </form>
 </div>
 <script src="{% static 'js/upload_files.js' %}"></script>

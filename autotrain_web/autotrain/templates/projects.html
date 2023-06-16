@@ -33,7 +33,7 @@
       {{ project.name }}
       <form action="{% url 'delete_project' %}?project_id={{ project.id }}" method="post" class="delete-form">
         {% csrf_token %}
-        <button type="submit" class="delete-button">
+        <button type="submit" onclick="loaderIcon()" class="delete-button">
           <img class="but" src="{% static 'img/delete.png' %}" width="25px;">
         </button>
       </form>
@@ -43,4 +43,8 @@
 
 
 </div>
+<div class="loader-field">
+    <div class="loader" id="loader"></div>
+</div>
+<script src="{% static 'js/loader.js' %}"></script>
 {% endblock %}

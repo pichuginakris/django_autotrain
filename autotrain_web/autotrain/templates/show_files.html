@@ -90,10 +90,13 @@
                 </div>
                 <input id="accuracy-input" type="number"  name="accuracy" min="1" max="10" value="{{ config.accuracy }}" required>
             </div>
-            <button type="submit" class="launch" onclick="validateForm()" id="training-button">Training</button>
+            <button type="submit" class="launch" onclick="validateForm()" id="training-button">Training
+
+            </button>
         </form>
     </div>
 </div>
+<div class="loader" id="loader"></div>
 <script src="{% static 'js/show_files.js' %}"></script>
 {% endblock %}
 

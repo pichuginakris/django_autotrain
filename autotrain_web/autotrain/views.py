@@ -338,9 +338,9 @@ def delete_project(request):
     # Удаление связанных файлов Files
     files = Files.objects.filter(project=project)
     for file in files:
-        file_path = file.files.path
-        file.delete()
         try:
+            file_path = file.files.path
+            file.delete()
             os.remove(file_path)
         except:
             print('Файл удален уже')
@@ -348,9 +348,9 @@ def delete_project(request):
     # Удаление связанных файлов Classes
     classes = Classes.objects.filter(project=project)
     for cls in classes:
-        cls_path = cls.files_classes.path
-        cls.delete()
         try:
+            cls_path = cls.files_classes.path
+            cls.delete()
             os.remove(cls_path)
         except:
             print('Файл удален уже')

@@ -1,4 +1,9 @@
 document.getElementById("upload-form").addEventListener("submit", function(event) {
+    let errorText = document.getElementById("launch-files-text");
+    let loader = document.getElementById("loader");
+    errorText.style.display = "none";
+    loader.style.display = "block"; // Показать кружочек загрузки
+
     let flagDepth = "False"; // флаг, который определяет, есть ли в папке еще хотя бы одна вложенная папка
     let folderInput = document.getElementById("folder-input");
     let files = folderInput.files;
@@ -19,11 +24,12 @@ document.getElementById("upload-form").addEventListener("submit", function(event
     }
     if (flagDepth === "False") {
         // Вывод текста ошибки в upload-form
-          let errorText = document.getElementById("launch-files-text");
+
           errorText.textContent = "No selectable files. Please check for invalid file names or extensions..";
           errorText.style.color = "red";
           folderInput.parentNode.appendChild(errorText);
           event.preventDefault(); // Отмена отправки запроса POST
           return;
-     }
+    }
+
 });
