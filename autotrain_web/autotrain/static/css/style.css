@@ -185,8 +185,6 @@ button.delete-button:hover {
     background: #51AB32;
 }
 
-
-
 .project-container {
     display: flex;
     flex-wrap: wrap;
@@ -342,7 +340,8 @@ div.input-fields {
     font-weight: 400;
     margin-top: 20px;
     justify-content: space-between;
-
+    min-height: 50px;
+    align-items: center;
 }
 label {
     margin-right: 10px;
@@ -389,7 +388,7 @@ label {
 /* Кнопка вставить файл */
 .input-file {
     display: flex;
-    width: -webkit-fill-available;
+
     justify-content: space-between;
 }
 .input-file-btn {
@@ -402,7 +401,7 @@ label {
 }
 .input-file-text {
 	padding: 0 10px;
-	line-height: 40px;
+	line-height: 20px;
 	display: inline-block;
 }
 .input-file input[type=file] {
@@ -424,49 +423,50 @@ div.file-fields {
 }
 
 input[type=checkbox] {
-         position: relative;
-	       cursor: pointer;
-    }
-    input[type=checkbox]:before {
-         content: "";
-         display: block;
-         position: absolute;
-         width: 20px;
-         height: 20px;
-         top: 0;
-         left: 0;
-         background-color:#e9e9e9;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 32px;
+}
+input[type=checkbox]:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-color:#e9e9e9;
 }
 input[type=checkbox]:checked:before {
-         content: "";
-         display: block;
-         position: absolute;
-         width: 20px;
-         height: 20px;
-         top: 0;
-         left: 0;
-         background-color:#51AB32;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-color:#51AB32;
 }
-    input[type=checkbox]:checked:after {
-         content: "";
-         display: block;
-         width: 5px;
-         height: 10px;
-         border: solid white;
-         border-width: 0 2px 2px 0;
-         -webkit-transform: rotate(45deg);
-         -ms-transform: rotate(45deg);
-         transform: rotate(45deg);
-         position: absolute;
-         top: 2px;
-         left: 6px;
+input[type=checkbox]:checked:after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 2px;
+    left: 6px;
 }
 
 button.launch {
     margin-top: 20px;
 }
 /* Стили для преподготовки файлов  */
-div.preloaded {
+div.preloaded, div.popup {
     padding: 20px;
     margin-bottom: 20px;
     background: #2e2e2e70;
@@ -526,12 +526,22 @@ div.preloaded-labels, div.preloaded-images {
     margin-bottom: 40px;
     overflow: hidden;
 }
-
-div.blur {
-    position: absolute;
-    height: 100px;
-    width: 10px;
-    left: 70%;
-    backdrop-filter: blur(2px);
+/* Стили для информации о полях */
+div.field-name {
+    display: flex;
 }
 
+div.popup {
+    position: absolute;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #2e2e2e;
+    box-shadow: 0px 3px 4px rgba(75, 75, 75, 0.25), inset 0px 3px 6px rgba(0, 0, 0, -0.75);
+    border-radius: 13px;
+    z-index: 10;
+    max-width: 25%;
+    margin-top: 120px;
+}
+svg.icons {
+    cursor: pointer;
+}
