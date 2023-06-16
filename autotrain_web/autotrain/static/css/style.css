@@ -272,15 +272,13 @@ span.folder-text {
 
 .info-block {
     margin-bottom: 20px;
-    background: linear-gradient(197.95deg, #4D4D4D 4.37%, #373737 103.8%);
-    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.14), inset 3px 4px 4px rgba(214, 214, 214, 0.03);
-    border-radius: 13px;
     padding: 10px;
     color: white;
     display: flex;
     justify-content: space-between;
     padding-left: 40px;
     padding-right: 40px;
+    border-bottom: 1px solid #424242;
 }
 
 
@@ -307,6 +305,27 @@ span.folder-text {
     margin-bottom: 5px;
     font-style: italic;
     color: #999;
+}
+a.models-link {
+    text-decoration: none;
+    color: white;
+}
+div.models-info {
+    border-top: 1px solid #424242;
+    border-bottom: 1px solid #424242;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+div.model-container {
+    background: linear-gradient(197.95deg, #4D4D4D 4.37%, #373737 103.8%);
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.14), inset 3px 4px 4px rgba(214, 214, 214, 0.03);
+    border-radius: 13px;
+    padding: 10px;
+    color: white;
+
+    padding-left: 40px;
+    padding-right: 40px;
+    min-width: 30%;
 }
 
 .container {

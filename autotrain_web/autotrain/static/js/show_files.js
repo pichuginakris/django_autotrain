@@ -7,8 +7,8 @@ inputFile.addEventListener('change', function() {
   if (file) {
     inputText.textContent = file.name;
     const errorMessage = document.getElementById('training-button');
-      errorMessage.style.background = '#007521';
-      errorMessage.textContent = "Training";
+    errorMessage.style.background = '#51AB32';
+    errorMessage.textContent = "Training";
   }
 });
 

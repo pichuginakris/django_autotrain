@@ -1,8 +1,9 @@
+import json
 import os
 import yaml
 from django.core.exceptions import ObjectDoesNotExist
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.conf import settings
 
@@ -228,9 +229,11 @@ def show_files(request):
 
         # Запуск основной функции main()
         result = main()
+        print(result)
+        result_data = json.dumps(result)
 
         # Отображение страницы результатов с передачей результата в шаблон
-        return render(request, 'results.html', {'result': result})
+        return HttpResponseRedirect(f'/results/?result={result_data}')
 
     # Отображение страницы show_files.html с передачей данных в шаблон
     return render(request, 'show_files.html', {
@@ -241,6 +244,75 @@ def show_files(request):
         'selected_folder': selected_folder,
         'config': config,
     })
+
+
+def results(request):
+    # Получение значения параметра 'project_id' из запроса
+    project_id = request.GET.get('project_id')
+
+    selected_folder = ''
+    if not project_id:
+        # Если 'project_id' отсутствует в запросе, проверяем наличие его значения в сессии
+        project_id = request.session.get('project_id')
+        selected_folder = request.session.get('selected_folder')
+    else:
+        # Если 'project_id' присутствует в запросе, сохраняем его значение в сессии
+        request.session['project_id'] = project_id
+
+    if not project_id:
+        # Если значение 'project_id' не задано, перенаправляем на страницу проектов
+        return redirect('projects')
+
+    # Получение объекта проекта по 'project_id'
+    project = Project.objects.get(id=project_id)
+    # Получение всех проектов
+    projects = Project.objects.all()
+    yolo_dict = {'yolov5': {'Link': 'https://github.com/ultralytics/yolov5', 'Paper': '-',
+                            'Additional information': '-',
+                            'Access additional YOLOv5 resources:': {
+                                'WIKI': 'https://github.com/ultralytics/yolov5/wiki',
+                                'Tutorials': 'https://docs.ultralytics.com/yolov5 ',
+                                'Docs': 'https://docs.ultralytics.com'
+                            }},
+                 'yolov7': {'Link': ' https://github.com/WongKinYiu/yolov7',
+                            'Paper': 'https://arxiv.org/abs/2207.02696',
+                            'Additional information': '-'},
+                 'yolov8': {'Link': 'https://github.com/ultralytics/ultralytics',
+                            'Paper': 'https://arxiv.org/abs/2207.02696',
+                            'Additional information': {
+                                'WIKI': 'https://github.com/ultralytics/ultralytics/wiki',
+                                'Tutorials': 'https://docs.ultralytics.com/'
+                            }
+                            },
+                 'Faster-vgg16':
+                     {'Link': 'https://github.com/jwyang/faster-rcnn.pytorch/tree/f9d984d27b48a067b29792932bcb5321a39c1f09',
+                      'Paper': 'https://arxiv.org/abs/1506.01497',
+                      'Additional information': '-',
+                      },
+                 'SSD': {'Link': 'https://github.com/amdegroot/ssd.pytorch/tree/5b0b77faa955c1917b0c710d770739ba8fbff9b7',
+                         'Paper': 'https://arxiv.org/abs/1512.02325',
+                         'Additional information': '-',
+                         }
+                 }
+    try:
+        result = request.GET.get('result')  # Получение значения параметра 'result' из запроса
+        result = json.loads(result)
+        top_models = result[1]
+
+        for model_key, model_value in top_models.items():
+            print(model_key)
+            print(model_value)
+            for yolo_key in yolo_dict.keys():
+                if yolo_key.lower() in model_value.lower():
+                    print(yolo_key)
+                    top_models[model_key] = {'name': model_value, 'stats': yolo_dict[yolo_key]}
+                    print(top_models)
+
+    except:
+        result = None
+    # Дальнейшая обработка результатов
+
+    return render(request, 'results.html', {'result': result, 'project': project, 'projects': projects,})
 
 
 def projects(request):
