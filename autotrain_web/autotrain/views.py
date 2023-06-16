@@ -102,6 +102,8 @@ def upload_files(request):
             folder_name = os.path.dirname(folder_paths[0])
 
             folder_main = folder_paths[0].replace(' ', '').split("/", 1)[0]
+
+            folder_main_original = folder_main
             print(folder_main)
             # Проверка наличия папки с таким же главным названием в базе данных
             existing_folders = Files.objects.filter(project=project, folder_name__startswith=folder_main)
@@ -117,7 +119,7 @@ def upload_files(request):
             folder_id = 0
             for file in folder:
                 # Удаление пробелов из названия папок
-                folder_name = os.path.dirname(folder_paths[folder_id].replace(' ', ''))
+                folder_name = os.path.dirname(folder_paths[folder_id].replace(' ', '').replace(folder_main_original, folder_main))
                 # Создание экземпляра класса 'Files' и сохранение его в базе данных в случае, если такой файл еще не был загружен
                 try:
                     existing_file = Files.objects.get(project=project, files=file, folder_name=folder_name)
@@ -332,6 +334,28 @@ def delete_project(request):
     # Обработка случая, когда проект не существует
     except Project.DoesNotExist:
         return redirect('projects')  # Перенаправление на страницу проектов
+
+    # Удаление связанных файлов Files
+    files = Files.objects.filter(project=project)
+    for file in files:
+        file_path = file.files.path
+        file.delete()
+        try:
+            os.remove(file_path)
+        except:
+            print('Файл удален уже')
+
+    # Удаление связанных файлов Classes
+    classes = Classes.objects.filter(project=project)
+    for cls in classes:
+        cls_path = cls.files_classes.path
+        cls.delete()
+        try:
+            os.remove(cls_path)
+        except:
+            print('Файл удален уже')
+
+
 
     # Выполнение удаления
     project.delete()
