@@ -1,11 +1,8 @@
-<!-- projects.html -->
-
 {% extends 'base.html' %}
-{% block title %}Projects{% endblock %}
+{% block title %}Projects{% endblock title %}
 {% load static %}
 {% block content %}
 <h1>All projects</h1>
-
 <div class="project-container">
   <a href="{% url 'create_project' %}" class="project-item create-project">
     <div class="card-btn__content card-btn__top-block-content">
@@ -40,11 +37,9 @@
     </div>
   </a>
   {% endfor %}
-
-
 </div>
 <div class="loader-field">
-    <div class="loader" id="loader"></div>
+  <div class="loader" id="loader"></div>
 </div>
 <script src="{% static 'js/loader.js' %}"></script>
 {% endblock %}

@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Upload{% endblock %}
+{% block title %}Preview{% endblock title %}
 {% block content %}
 {% load custom_filters %}
-<!-- Отображение главной папки -->
 <div class="form-container">
     <div class="preloaded">
         {% for folder, folder_data in folder_dict.items %}
@@ -18,7 +17,6 @@
                 <div class="folder-path-line" >
                 </div>
                 {% for file in folder_data.files %}
-
                 <div class="preloaded-obj">
                     {% if file|slice:"-4:" == '.jpg' or file|slice:"-5:" == '.jpeg' or file|slice:"-4:" == '.png' or file|slice:"-4:" == '.gif' or file|slice:"-4:" == '.bmp' %}
                     <img width="100px" height="100px" src="/media/{{file}}">
@@ -33,11 +31,10 @@
             {% endif %}
             {% endif %}
         </div>
-        <!-- Рекурсивный вызов для вложенных папок -->
-        {% if folder_data.folders %}
-        {% include 'preview_sub.html' with folder_dict=folder_data.folders %}
-        {% endif %}
-
+            <!-- Рекурсивный вызов для вложенных папок -->
+            {% if folder_data.folders %}
+                {% include 'preview_sub.html' with folder_dict=folder_data.folders %}
+            {% endif %}
         {% endfor %}
     </div>
 

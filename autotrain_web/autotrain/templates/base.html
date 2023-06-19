@@ -3,76 +3,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Default title{% endblock title %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 </head>
 <body>
-    <header>
+<header>
+    <div class="project-selection">
+        <script src="{% static 'js/base.js' %}"></script>
 
-            <div class="project-selection">
-                <style>
-
-</style>
-
-<script>
-    // JavaScript для обработки кликов на элементы выпадающего списка
-    document.addEventListener("DOMContentLoaded", function() {
-        var dropdownBtns = document.querySelectorAll(".dropdown-btn");
-
-        dropdownBtns.forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                this.parentNode.querySelector(".dropdown-content").classList.toggle("show");
-            });
-        });
-
-        // Закрытие выпадающего списка при клике вне его области
-        window.addEventListener("click", function(event) {
-            if (!event.target.matches(".dropdown-btn")) {
-                var dropdowns = document.querySelectorAll(".dropdown-content");
-                dropdowns.forEach(function(dropdown) {
-                    if (dropdown.classList.contains("show")) {
-                        dropdown.classList.remove("show");
-                    }
-                });
-            }
-        });
-    });
-
-</script>
-
-    <div id="project-select">
-        <div class="dropdown">
-            <button class="dropdown-btn" type="button"> {% if project.id %}
-                {{ project.name }}
-            {% else %}
-                Choose
-            {% endif %}</button>
-            <div class="dropdown-content">
-                <a href="{% url 'projects' %}" {% if not project.id %}class="selected"{% endif %}>All projects</a>
-                <a href="{% url 'create_project' %}">Create new project</a>
-                {% for p in projects %}
+        <div id="project-select">
+            <div class="dropdown">
+                <button class="dropdown-btn" type="button"> {% if project.id %}
+                    {{ project.name }}
+                    {% else %}
+                    Choose
+                    {% endif %}</button>
+                <div class="dropdown-content">
+                    <a href="{% url 'projects' %}" {% if not project.id %}class="selected"{% endif %}>All projects</a>
+                    <a href="{% url 'create_project' %}">Create new project</a>
+                    {% for p in projects %}
                     <a href="{% url 'show_files' %}?project_id={{ p.id }}" {% if project.id == p.id %}class="selected"{% endif %}>{{ p.name }}</a>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-
-
-        </div>
-        <nav>
-            <ul class="menu">
-                <li><a href="{% url 'projects' %}">All projects</a></li>
-                <li><a href="{% url 'create_project' %}">Create new project</a></li>
-                <li><a href="{% url 'upload_files' %}">Upload files</a></li>
-                <li><a href="{% url 'show_files' %}">Settings</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <nav>
+        <ul class="menu">
+            <li><a href="{% url 'projects' %}">All projects</a></li>
+            <li><a href="{% url 'create_project' %}">Create new project</a></li>
+            <li><a href="{% url 'upload_files' %}">Upload files</a></li>
+            <li><a href="{% url 'show_files' %}">Settings</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 </body>
 </html>

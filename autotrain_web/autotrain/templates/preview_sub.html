@@ -28,10 +28,9 @@
         {% endif %}
         {% endif %}
     </div>
-
     <!-- Рекурсивный вызов для вложенных папок -->
-    {% if folder_data.folders %}
-    {% include 'preview_sub.html' with folder_dict=folder_data.folders %}
-    {% endif %}
+        {% if folder_data.folders %}
+            {% include 'preview_sub.html' with folder_dict=folder_data.folders %}
+        {% endif %}
     {% endfor %}
 </div>

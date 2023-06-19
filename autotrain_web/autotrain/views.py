@@ -112,6 +112,8 @@ def upload_files(request):
                 # Если папка с таким же главным названием уже существует, создаем новое название папки
                 folder_count = existing_folders.count()
                 folder_main = f"{folder_main}_{folder_count + 1}"
+            else:
+                folder_main = f"{folder_main}_{1}"
 
             # Сохранение главного пути загружаемых файлов
             request.session['selected_folder'] = folder_main
@@ -200,9 +202,11 @@ def show_files(request):
     if request.method == 'POST':
         # Обработка POST-запроса при отправке формы
 
-        # Получение значения параметра 'GPU' из POST-запроса
-        # Получение значения параметра 'folder_name' из POST-запроса
-        folder_name = request.POST.get('folder_name')
+        # Получение значения параметра 'folder_name' из POST-запроса, в конец добавляется обозначение конца пути "/",
+        # чтобы отсеять схожие названия
+        folder_name = request.POST.get('folder_name') + '/'
+        print(folder_name)
+        print('This is folder')
         # Получение файла из POST-запроса
         file = request.FILES.get('file')
         # Создание экземпляра класса Classes и сохранение его в базу данных
@@ -247,6 +251,16 @@ def show_files(request):
 
 
 def results(request):
+    """
+    Результаты работы скрипта ml_model_optimizer
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response containing the rendered template.
+
+    """
     # Получение значения параметра 'project_id' из запроса
     project_id = request.GET.get('project_id')
 
@@ -300,17 +314,12 @@ def results(request):
         top_models = result[1]
 
         for model_key, model_value in top_models.items():
-            print(model_key)
-            print(model_value)
             for yolo_key in yolo_dict.keys():
                 if yolo_key.lower() in model_value.lower():
-                    print(yolo_key)
                     top_models[model_key] = {'name': model_value, 'stats': yolo_dict[yolo_key]}
-                    print(top_models)
 
     except:
         result = None
-    # Дальнейшая обработка результатов
 
     return render(request, 'results.html', {'result': result, 'project': project, 'projects': projects,})
 
@@ -342,6 +351,16 @@ def projects(request):
 
 
 def preview(request):
+    """
+    Представление для отображения предпросмотра загруженных файлов
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response containing the rendered template.
+
+    """
     selected_folder = request.session.get('selected_folder')
     project_id = request.GET.get('project_id')
 
@@ -360,8 +379,9 @@ def preview(request):
     project = Project.objects.get(id=project_id)
     # Получение всех проектов из базы данных
     projects = Project.objects.all()
+    print(selected_folder + '/')
     if selected_folder:
-        queryset = Files.objects.filter(folder_name__startswith=selected_folder)
+        queryset = Files.objects.filter(folder_name__startswith=selected_folder + '/')
         folder_dict = {}
         for file in queryset:
             folder_path = file.folder_name

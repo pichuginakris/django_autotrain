@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Upload{% endblock %}
+{% block title %}Upload{% endblock title %}
 {% block content %}
 <h1>Upload files</h1>
 <div class="form-container">
@@ -102,7 +102,7 @@
     <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="folder-container">
-                <div class="loader" id="loader"></div>
+            <div class="loader" id="loader"></div>
             <label for="folder-input" class="folder-label">
                 <span class="folder-text" id="launch-files-text">Upload files</span>
 
@@ -110,8 +110,6 @@
             </label>
         </div>
         <button type="submit" class="launch">Upload</button>
-
-
     </form>
 </div>
 <script src="{% static 'js/upload_files.js' %}"></script>
