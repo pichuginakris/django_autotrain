@@ -308,7 +308,11 @@ span.folder-text {
 }
 a.models-link {
     text-decoration: none;
-    color: white;
+    color: #8AB4F8;
+}
+li.models-name {
+    font-size: 20px;
+    font-weight: bold;
 }
 div.models-info {
     border-top: 1px solid #424242;

@@ -8,7 +8,7 @@
         <h2>Top Models</h2>
         <ul>
             {% for model, key in result.1.items %}
-            <li style="list-style-type: decimal;">{{ key.name }}</li>
+            <li class="models-name" style="list-style-type: decimal;">{{ key.name }}</li>
             <div class="models-info">
                 {% for stat_name, stat_desc in key.stats.items %}
                 {% if stat_desc.items %}
