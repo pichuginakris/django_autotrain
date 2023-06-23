@@ -1,73 +1,96 @@
-# Autotrain веб-приложение
+# Autotrain Web Application
 
-Проект "autotrain_web" представляет собой веб-приложение, разработанное с использованием фреймворка Django.
-Этот интерфейс позволяет пользователям загружать, обучать и управлять моделями машинного обучения в автоматическом режиме.
+The "autotrain_web" project is a web application developed using the Django framework. This interface allows users to upload, train, and manage machine learning models automatically.
 
-## Зависимости
+## Dependencies
 
-Перед запуском проекта, убедитесь, что у вас установлены следующие компоненты:
+Before running the project, make sure you have the following components installed:
 
 - Docker: https://docs.docker.com/get-docker/
 - Docker Compose: https://docs.docker.com/compose/install/
 
-## Клонирование репозитория
+## Cloning the Repository
 
-Вы можете клонировать репозиторий проекта "autotrain_web" с помощью следующей команды:
+You can clone the "autotrain_web" project repository using the following command:
 
 ```shell
-git clone <URL репозитория>
+git clone <repository URL>
 ```
 
-## Запуск проекта
+## Project Structure
 
-1. Перейдите в папку "autotrain_web" с помощью команды:
+Your project includes the following files and directories:
 
-   ```shell
-   cd autotrain_web
-   ```
+- `autotrain_web`: This directory contains Django project configuration files.
+- `autotrain`: This directory contains various modules of your Django application, including forms and models.
+- `autotrain/ORDC`: This directory is intended for model training and contains relevant files.
+- `docker-compose.yml`: File for configuring and running Docker containers.
+- `manage.py`: Script for managing the Django project.
+- `requirements.txt`: File that lists the Python dependencies required for the project.
 
-2. Создайте и запустите контейнеры с помощью docker-compose:
+## Main Pages
 
-   ```shell
-   docker-compose up -d
-   ```
+### Home Page
 
-   Опция `-d` запускает контейнеры в фоновом режиме.
+URL: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-3. После успешного запуска контейнеров, вы можете открыть веб-браузер и перейти по следующему URL-адресу:
+![Pages](images/add_new_project.gif)
 
-   ```
-   http://localhost:8000
-   ```
+The home page displays all projects. You can click the "Create Project" button to create a new project. Each project can be deleted.
 
-   Теперь вы должны увидеть ваше веб-приложение Django.
-   
-## Создание нового проекта
-- На главной странице отображаются все проекты. Для создания нового проекта перейдите по ссылке
+### Create Project
+
+URL: [http://127.0.0.1:8000/create_project/](http://127.0.0.1:8000/create_project/)
+
+![Create new project](images/create_new_project.gif)
+
+When you visit the create project page, you will see a form where you can enter the project name. After submitting the form, the project will be created, and you will be redirected to the file upload page.
+
+### File Upload
+
+URL: [http://127.0.0.1:8000/upload_files/](http://127.0.0.1:8000/upload_files/)
+
+![Upload photos](images/upload_photos.gif)
+
+On this page, you need to upload a folder with a minimum depth of 2, containing photos and classes for training. After uploading the files, the preview page will open.
+
+### Preview
+
+URL: [http://127.0.0.1:8000/preview/](http://127.0.0.1:8000/preview/)
+
+![Preview](images/preview.gif)
+
+The preview page displays the uploaded files. It shows the folder hierarchy, and for each folder, it displays a portion of the files it contains (images or text files). After previewing, you can click the "Next" button to proceed to the configuration settings page.
+
+### Configuration Settings
+
+URL: [http://127.0.0.1:8000/show_files/](http://127.0.0.1:8000/show_files/)
+
+![Settings](images/settings_questions.gif)
+
+On this page, you need to select the folder you uploaded, and configure the following settings: Dataset path, Classes path, GPU, Speed, Accuracy. After entering all the settings, you can click the "Start Testing" button. It will initiate the selection of the best models for training.
+
+### Results
+
+URL: [http://127.0.0.1:8000/results/](http://127.0.0.1:8000/results/)
+
+![Settings](images/training_results.gif)
+
+The results page displays the top 3 models for training, along with parameters such as Image Count, W, H, Gini coefficient, and Class count. All of this is executed using Docker.
+
+## Running the Project
+
+To run your project, follow these steps:
+
+1. Make sure you have Docker and Docker Compose installed.
+2. Navigate to the root directory of your project where the `docker-compose.yml` file is located.
+3. Open a terminal and run the following command to start the containers:
+
 ```
-http://127.0.0.1:8000/create_project/
+docker-compose up --build
 ```
- или нажмите на кнопку "Создать проект" в верхнем меню.  
-- После создания проекта загрузите файлы для обучения модели на странице 
-```
-http://127.0.0.1:8000/upload_files/
-```
-Или при нажатии на кнопку "Загрузить файлы" в верхнем меню
 
-- После загрузки файлов вы перейдете на страницу настроек, в которой небоходимо будет загрузить файл классов формата .txt, а также конфигуграционные данные
+After that, your web application will be available at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
-## Дополнительная информация
 
-- Файл `manage.py` является точкой входа для командной строки Django. Вы можете использовать его для запуска различных команд, связанных с проектом Django.
-- Docker-файлы и `docker-compose.yml` в папке "autotrain_web" содержат конфигурацию для создания образа конт
-
-ейнера и настройки сети и сервисов для вашего проекта.
-- При необходимости, вы можете настроить порты и другие параметры в файле `docker-compose.yml` в соответствии с вашими потребностями.
-
-## Вклад
-
-Если вы обнаружили ошибки, проблемы или имеете предложения по улучшению проекта "autotrain_web", пожалуйста, создайте соответствующий Issue в репозитории или отправьте Pull Request с вашими изменениями.
-
-## Лицензия
-
-Проект "autotrain_web" лицензирован под [MIT License](LICENSE).
+The "autotrain_web" project is licensed under the [MIT License](LICENSE).
